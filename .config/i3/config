@@ -268,11 +268,12 @@ bar {
 		pasink \
 		battery \
 		datetime \
-     	-p time.format="%H:%M" \
-	   disk.format="{percent:0.2f}% of {size}" \
+     	-p datetime.format="%d/%m %H:%M" \
+	   disk.format="{used}/{size}" \
+    	   disk.system="SI" \
      	-t dracula-powerline 
 	position top
-	font pango: Fira Code Retina 10 
+	font pango: Fira Code Retina 9 
 	colors {
 		background $dark-bg-color
 		#                  border             background         text
