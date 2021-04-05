@@ -1,4 +1,5 @@
 # i3 config file (v4)
+
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 #
@@ -135,7 +136,7 @@ set $ws6 "6:  Apps"
 set $ws7 "7: "
 set $ws8 "8: "
 set $ws9 "9:  Notas"
-set $ws10 "10: Spotify"
+set $ws0 "0: Spotify"
 
 # Workspace 1 - Terminal
 assign [class="Alacritty"] number $ws1
@@ -161,7 +162,7 @@ assign [class="zoom"] number $ws5
 assign [class="Indicator-stickynotes"] number $ws9
 
 # Worspace 0 - Spotify
-for_window [class="Spotify"] move to workspace $ws10
+for_window [class="Spotify"] move to workspace $ws0
 
 # Others
 assign [class="."] number $ws6
@@ -176,7 +177,7 @@ bindsym $mod+6 workspace number $ws6
 bindsym $mod+7 workspace number $ws7
 bindsym $mod+8 workspace number $ws8
 bindsym $mod+9 workspace number $ws9
-bindsym $mod+0 workspace number $ws10
+bindsym $mod+0 workspace number $ws0
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace number $ws1
@@ -188,7 +189,7 @@ bindsym $mod+Shift+6 move container to workspace number $ws6
 bindsym $mod+Shift+7 move container to workspace number $ws7
 bindsym $mod+Shift+8 move container to workspace number $ws8
 bindsym $mod+Shift+9 move container to workspace number $ws9
-bindsym $mod+Shift+0 move container to workspace number $ws10
+bindsym $mod+Shift+0 move container to workspace number $ws0
 
 # Move workspace to different RandR
 bindsym $mod+Control+Left move workspace to output left
@@ -196,10 +197,14 @@ bindsym $mod+Control+j move workspace to output left
 bindsym $mod+Control+Right move workspace to output right
 bindsym $mod+Control+semicolon move workspace to output right
 
+# Monitors variables
+set $primary-screen  HDMI-1 eDP-1
+set $secondary-screen eDP-1 HDMI-1
+
 # Workspace on specific screens
-workspace $ws1 output eDP-1
-workspace $ws2 output HDMI-1
-workspace $ws3 output HDMI-1
+workspace $ws1 output $secondary-screen
+workspace $ws2 output $primary-screen
+workspace $ws3 output $primary-screen
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -236,6 +241,7 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # Appearance
+# Colors from Dracula Theme
 
 set $dark-bg-color	 #282a36
 set $light-bg-color 	 #44475a
@@ -260,14 +266,13 @@ client.urgent		$red-bg-color		$dark-bg-color		$red-text-color	        #00ff00
 # finds out, if available)
 bar {
 	status_command ~/.config/i3/bumblebee-status/bumblebee-status \
- 		-m git \
-		pomodoro \
-		playerctl \
-		cpu \
-		disk \
-		pasink \
-		battery \
-		datetime \
+        -m git \
+	   pomodoro \
+	   playerctl \
+	   cpu \
+	   disk \
+	   battery \
+	   datetime \
      	-p datetime.format="%d/%m %H:%M" \
 	   disk.format="{used}/{size}" \
     	   disk.system="SI" \
@@ -287,8 +292,8 @@ bar {
 # Key-bindings
 
 # Binds for lock buttons in i3blocks
-bindsym --release Caps_Lock exec pkill -SIGRTMIN+11 i3blocks
-bindsym --release Num_Lock exec pkill -SIGRTMIN+11 i3blocks
+# bindsym --release Caps_Lock exec pkill -SIGRTMIN+11 i3blocks
+# bindsym --release Num_Lock exec pkill -SIGRTMIN+11 i3blocks
 
 # Pulse Audio Controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
@@ -296,7 +301,7 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
-# Playerctl controles
+# Playerctl controls
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioPause exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
@@ -310,15 +315,17 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightne
 # Touchpad controls
 bindsym XF86TouchpadToggle exec ~/.scripts/toggletouchpad.sh # toggle touchpad
 
+# Startup Programs
 exec --no-startup-id picom -f
 exec --no-startup-id spotify
 exec --no-startup-id alacritty
 exec --no-startup-id pasystray
 exec --no-startup-id blueman-applet
 
-# exec_always pacmd set-card-profile 0 output:analog-stereo+output:hdmi-stereo+input:analog-stereo
-# ec_always xrandr --output HMDI-1 --auto --left-of eDP-1 
-exec_always xrandr --output eDP-1 --mode 1366x768 --pos 1366x0 --rotate normal --output HDMI-1 --primary --mode 1366x768 --pos 0x0 --rotate normal --left-of eDP-1 --output DP-1 --off
 
+# Wallpaper configuration
 exec_always feh --bg-scale /home/marcelo/Images/Wallpapers/pink-purple.jpg
 exec_always sh ~/.fehbg &
+
+# Monitors configuration
+exec_always sh ~/.config/i3/multiplescreen.sh
