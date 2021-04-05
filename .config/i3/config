@@ -315,6 +315,23 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightne
 # Touchpad controls
 bindsym XF86TouchpadToggle exec ~/.scripts/toggletouchpad.sh # toggle touchpad
 
+# Print Screen to folder - Whole Screen
+bindsym Print exec scrot -o '/home/marcelo/PrintScreen/%F_%T_$wx$h.png'
+
+# Print Screen to folder - Area selection 
+bindsym Shift+Print --release exec "scrot -s -o '/home/marcelo/PrintScreen/%F_%T_$wx$h.png'" 
+
+# Print Screen to clipboard - Whole Screen
+bindsym Control+Print --release exec scrot '/tmp/screenshot.png' -e 'xclip -selection clipboard -target image/png -i $f'
+
+# Print Screen to clipboard - Area selection
+bindsym Control+Shift+Print --release exec scrot -s '/tmp/screenshot.png' -e 'xclip -selection clipboard -target image/png -i $f'
+
+
+# Print Screen to clipboard - Whole Screen
+# Print Screen
+
+
 # Startup Programs
 exec --no-startup-id picom -f
 exec --no-startup-id spotify
