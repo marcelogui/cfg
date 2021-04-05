@@ -345,4 +345,6 @@ exec_always feh --bg-scale /home/marcelo/Images/Wallpapers/pink-purple.jpg
 exec_always sh ~/.fehbg &
 
 # Monitors configuration
-exec_always sh ~/.config/i3/multiplescreen.sh
+exec_always sh /home/marcelo/.config/i3/multiplescreen
+# Audio cofiguration
+exec_always sh /home/marcelo/.config/i3/hotplug-hdmi
