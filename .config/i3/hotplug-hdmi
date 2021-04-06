@@ -16,11 +16,11 @@ if [ $(cat /sys/class/drm/card*-HDMI-A-1/status | grep -Ec "^connected") -eq 1 ]
         logger -t /home/marcelo/bin/log-hotplugtv "HDMI TV connected"
         /bin/sleep 2;
         export PULSE_RUNTIME_PATH="/run/user/1000/pulse/";
-        sudo -u marcelo -E pacmd set-card-profile 0 output:hdmi-stereo;
+        sudo -u marcelo -E pacmd set-card-profile 0 output:hdmi-stereo+input:analog-stereo;
 else
         logger -t /home/marcelo/bin/log-hotplugtv "HDMI TV disconnected"
         export PULSE_RUNTIME_PATH="/run/user/1000/pulse/";
-        sudo -u marcelo -E pacmd set-card-profile 0 output:analog-stereo;
+        sudo -u marcelo -E pacmd set-card-profile 0 output:analog-stereo+input:analog-stereo;
 fi
 
 exit 0

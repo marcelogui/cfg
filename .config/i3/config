@@ -276,6 +276,7 @@ bar {
      	-p datetime.format="%d/%m %H:%M" \
 	   disk.format="{used}/{size}" \
     	   disk.system="SI" \
+	   scrolling.width 10 \
      	-t dracula-powerline 
 	position top
 	font pango: Fira Code Retina 9 
