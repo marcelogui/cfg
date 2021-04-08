@@ -118,32 +118,37 @@ bindsym $mod+a focus parent
 # move the currently focused window to the scratchpad
 bindsym $mod+Shift+minus move scratchpad
 
-# Move workspace to the other screen
-bindsym $mod+Tab move workspace to output right
-
 # Show the next scratchpad window or hide the focused scratchpad window.
 # If there are multiple scratchpad windows, this command cycles through them.
 bindsym $mod+minus scratchpad show
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1:  zsh"
-set $ws2 "2:   Web"
-set $ws3 "3:  VSCode"
-set $ws4 "4:   Dev Tools"
-set $ws5 "5:  Chat"
-set $ws6 "6:  Apps"
-set $ws7 "7: "
-set $ws8 "8: "
-set $ws9 "9:  Notas"
-set $ws0 "0: Spotify"
+set $ws0 "0: zsh"
+set $ws1 "1: Chrome"
+set $ws2 "2: Firefox"
+set $ws3 "3: VSCode"
+set $ws4 "4: DevTools"
+set $ws5 "5: Chat"
+set $ws6 "6: Apps"
+set $ws7 "7: Work"
+set $ws8 "8: Notas"
+set $ws9 "9: Spotify"
 
-# Workspace 1 - Terminal
-assign [class="Alacritty"] number $ws1
+# Swap workspaces between screens
+bindsym $mod+Tab exec bash /home/marcelo/.config/i3/i3-swap.sh 
+
+# Send workspace to the other screen
+bindsym Mod1+Tab move workspace to output right
+
+# Workspace 0 - Terminal
+assign [class="Alacritty"] number $ws0
 for_window [class="Alacritty"] focus
 
-# Workspace 2 - Internet
-assign [class="Google-chrome"] number $ws2
+# Workspace 1 - Internet Chrome
+assign [class="Google-chrome"] number $ws1
+
+# Workspace 2 - Internet Firefox
 assign [class="Firefox"] number $ws2
 
 # Workspace 3 - VS Code
@@ -158,14 +163,17 @@ assign [class="DBeaver"] number $ws4
 assign [class="discord"] number $ws5
 assign [class="zoom"] number $ws5
 
-# Workspace 9 - Notes
-assign [class="Indicator-stickynotes"] number $ws9
-
-# Worspace 0 - Spotify
-for_window [class="Spotify"] move to workspace $ws0
-
-# Others
+# Workspace 6 - Others
 assign [class="."] number $ws6
+
+# Workspace 7 - Work
+
+# Workspace 8 - Notes
+assign [class="Indicator-stickynotes"] number $ws8
+
+# Worspace 9 - Spotify
+for_window [class="Spotify"] move to workspace $ws9
+
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
@@ -204,7 +212,8 @@ set $secondary-screen eDP-1 HDMI-1
 # Workspace on specific screens
 workspace $ws1 output $secondary-screen
 workspace $ws2 output $primary-screen
-workspace $ws3 output $primary-screen
+workspace $ws3 output $secondary-screen
+workspace $ws4 output $primary-screen
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -265,10 +274,9 @@ client.urgent		$red-bg-color		$dark-bg-color		$red-text-color	        #00ff00
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
+	output eDP-1
 	status_command ~/.config/i3/bumblebee-status/bumblebee-status \
         -m git \
-	   pomodoro \
-	   playerctl \
 	   cpu \
 	   disk \
 	   battery \
@@ -290,6 +298,32 @@ bar {
 	}
 }
 
+bar {
+	output primary 
+	output HDMI-1
+	status_command ~/.config/i3/bumblebee-status/bumblebee-status \
+        -m git \
+	   pomodoro \
+	   playerctl \
+	   pasink \
+	   pasource \
+	   datetime \
+     	-p datetime.format="%d/%m %H:%M" \
+	   disk.format="{used}/{size}" \
+    	   disk.system="SI" \
+	   scrolling.width 10 \
+     	-t dracula-powerline 
+	position top
+	font pango: Fira Code Retina 9 
+	colors {
+		background $dark-bg-color
+		#                  border             background         text
+		focused_workspace  $green-bg-color   $dark-bg-color     $light-text-color
+		active_workspace   $dark-bg-color     $dark-bg-color 	 $purple-bg-color
+		inactive_workspace $dark-bg-color     $dark-bg-color 	 $purple-bg-color
+		urgent_workspace   $red-bg-color      $red-bg-color      $dark-bg-color
+	}
+}
 # Key-bindings
 
 # Binds for lock buttons in i3blocks
