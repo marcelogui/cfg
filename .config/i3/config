@@ -1,27 +1,8 @@
-# i3 config file (v4)
-
-#
-# Please see https://i3wm.org/docs/userguide.html for a complete reference!
-#
-# This config file uses keycodes (bindsym) and was written for the QWERTY
-# layout.
-#
-# To get a config file with the same key positions, but for your current
-# layout, use the i3-config-wizard
-#
-
-# Font for window titles. Will also be used by the bar unless a different font
-# is used in the bar {} block below.
-font pango: Fira Code Bold 11
-
-title_align center
-
-# This font is widely installed, provides lots of unicode glyphs, right-to-left
-# text rendering and scalability on retina/hidpi displays (thanks to pango).
-#font pango:DejaVu Sans Mono 8
-
-# The combination of xss-lock, nm-applet and pactl is a popular choice, so
-# they are included here as an example. Modify as you see fit.
+##########################################
+#                                        # 
+#              STARTUP EXEC              # 
+#                                        # 
+##########################################
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
@@ -30,6 +11,48 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
+
+# Execute keyring at startup
+exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=secrets
+
+# Execute notification daemon dunst at startup
+exec --no-startup-id dunst
+
+# Startup Programs
+exec --no-startup-id picom -f 
+exec --no-startup-id spotify
+exec --no-startup-id alacritty
+exec --no-startup-id pasystray
+exec --no-startup-id blueman-applet
+exec --no-startup-id redshift
+
+##########################################
+#                                        # 
+#              START ALWAYS              # 
+#                                        # 
+##########################################
+
+# Config wacom tablet to HDMI
+# exec_always 'Wacom Intuos S Pen stylus' MapToOutput primary 
+exec_always setwacomHDMI
+
+# Wallpaper configuration
+exec_always feh --bg-scale /home/marcelo/Images/Wallpapers/pink-purple.jpg
+exec_always sh ~/.fehbg &
+
+# Monitors configuration
+exec_always sh /home/marcelo/.config/i3/multiplescreen
+# Audio cofiguration
+exec_always sh /home/marcelo/.config/i3/hotplug-hdmi
+# Keyboard configuration
+exec_always setxkbmap -layout us -variant intl -layout br -variant abnt2
+# . is the source command on ubuntu as it uses dash instead of bash
+exec_always . /home/marcelo/.zshrc
+# Power save configuration
+exec_always xset dpms 0 0 10800
+
+# Exec greenclip clipboard manager
+# exec_always "greenclip daemon"
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -47,23 +70,24 @@ set $right semicolon
 # use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
+##########################################
+#                                        # 
+#              GLOBAL BINDS              # 
+#                                        # 
+##########################################
+
 # start a terminal
 bindsym $mod+Return exec alacritty
 # start a terminal from the same directory
 bindsym $mod+Shift+Return exec alacritty --working-directory="`xcwd`"
-
 # kill focused window
 bindsym $mod+Shift+q kill
-
 # Lock Screen
 bindsym $mod+x exec sh ~/.config/i3/lockscreen.sh 
-
-# start dmenu (a program launcher)
-# bindsym $mod+d exec dmenu_run
-# There also is the (new) i3-dmenu-desktop which only displays applications
-# shipping a .desktop file. It is a wrapper around dmenu, so you need that
-# installed.
-# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+# Change monitors config
+bindsym $mod+p exec sh ~/.config/i3/multiplescreen
+bindsym $mod+Shift+p exec sh ~/.config/i3/multiplescreen2
+bindsym $mod+Shift+Mod1+p exec sh ~/.config/i3/multiplescreen3
 
 # change focus
 bindsym $mod+$left focus left
@@ -112,80 +136,121 @@ bindsym $mod+space focus mode_toggle
 # focus the parent container
 bindsym $mod+a focus parent
 
-# focus the child container
-#bindsym $mod+d focus child
-
 # move the currently focused window to the scratchpad
 bindsym $mod+Shift+minus move scratchpad
 
 # Show the next scratchpad window or hide the focused scratchpad window.
 # If there are multiple scratchpad windows, this command cycles through them.
-bindsym $mod+minus scratchpad show
+bindsym $mod+minus [class=.*] scratchpad show
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+bindsym $mod+r mode "resize"
+# resize window (you can also use the mouse for that)
+mode "resize" {
+  # These bindings trigger as soon as you enter the resize mode
+
+  # Pressing left will shrink the window’s width.
+  # Pressing right will grow the window’s width.
+  # Pressing up will shrink the window’s height.
+  # Pressing down will grow the window’s height.
+  bindsym $left       resize shrink width 10 px or 10 ppt
+  bindsym $down       resize grow height 10 px or 10 ppt
+  bindsym $up         resize shrink height 10 px or 10 ppt
+  bindsym $right      resize grow width 10 px or 10 ppt
+
+  # same bindings, but for the arrow keys
+  bindsym Left        resize shrink width 10 px or 10 ppt
+  bindsym Down        resize grow height 10 px or 10 ppt
+  bindsym Up          resize shrink height 10 px or 10 ppt
+  bindsym Right       resize grow width 10 px or 10 ppt
+
+  # back to normal: Enter or Escape or $mod+r
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+  bindsym $mod+r mode "default"
+}
+
+# Pulse Audio Controls
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+# Playerctl controls
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioPause exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+bindsym $mod+d exec rofi -show run -show-icons
+
+# Sreen brightness controls
+bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
+bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
+
+# Touchpad controls
+bindsym XF86TouchpadToggle exec ~/.scripts/toggletouchpad.sh # toggle touchpad
+
+# Print Screen to folder - Whole Screen
+bindsym Print exec scrot -o '/home/marcelo/Images/PrintScreen/%F_%T_$wx$h.png'
+
+# Print Screen to folder - Area selection 
+bindsym Shift+Print --release exec "scrot -s -o '/home/marcelo/Images/PrintScreen/%F_%T_$wx$h.png'" 
+
+# Print Screen to clipboard - Whole Screen
+bindsym Control+Print --release exec scrot '/tmp/screenshot.png' -e 'xclip -selection clipboard -target image/png -i $f'
+
+# Print Screen to clipboard - Area selection
+bindsym Control+Shift+Print --release exec scrot -s '/tmp/screenshot.png' -e 'xclip -selection clipboard -target image/png -i $f'
+
+# Open greenclip clipboard
+bindsym $mod+c --release exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command "{cmd}" 
+
+# Dunstctl command
+bindsym Control+Shift+comma exec dunstctl "history-pop"
+
+##########################################
+#                                        # 
+#               WORKSPACES               # 
+#                                        # 
+##########################################
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
 set $ws0 "0: zsh"
-set $ws1 "1: Chrome"
-set $ws2 "2: Firefox"
+set $ws1 "1: Internet"
+set $ws2 "2: Chat"
 set $ws3 "3: VSCode"
-set $ws4 "4: DevTools"
-set $ws5 "5: Chat"
-set $ws6 "6: Apps"
-set $ws7 "7: Work"
+set $ws4 "4: DevTools"
+set $ws5 "5: Work"
+set $ws6 "6: Any"
+set $ws7 "7: Any"
 set $ws8 "8: Notas"
-set $ws9 "9: Spotify"
+set $ws9 "9: Entertainment"
 
-# Swap workspaces between screens
-bindsym $mod+Tab exec bash /home/marcelo/.config/i3/i3-swap.sh 
+# Monitors variables
+set $primary-screen  HDMI-A-0 eDP-1
+set $secondary-screen eDP-1 HDMI-A-0
 
-# Send workspace to the other screen
-bindsym Mod1+Tab move workspace to output right
-
-# Workspace 0 - Terminal
-assign [class="Alacritty"] number $ws0
-for_window [class="Alacritty"] focus
-
-# Workspace 1 - Internet Chrome
-assign [class="Google-chrome"] number $ws1
-
-# Workspace 2 - Internet Firefox
-assign [class="Firefox"] number $ws2
-
-# Workspace 3 - VS Code
-assign [class="Code"] number $ws3
-for_window [class="Code"] focus
-
-# Workspace 4 - Dev Tools
-assign [class="Insomnia"] number $ws4
-assign [class="DBeaver"] number $ws4
-
-# Workspace 5 - Chatting
-assign [class="discord"] number $ws5
-assign [class="zoom"] number $ws5
-
-# Workspace 6 - Others
-assign [class="."] number $ws6
-
-# Workspace 7 - Work
-
-# Workspace 8 - Notes
-assign [class="Indicator-stickynotes"] number $ws8
-
-# Worspace 9 - Spotify
-for_window [class="Spotify"] move to workspace $ws9
-
-
+# Binds to workspaces
 # switch to workspace
-bindsym $mod+1 workspace number $ws1
-bindsym $mod+2 workspace number $ws2
-bindsym $mod+3 workspace number $ws3
-bindsym $mod+4 workspace number $ws4
-bindsym $mod+5 workspace number $ws5
-bindsym $mod+6 workspace number $ws6
-bindsym $mod+7 workspace number $ws7
-bindsym $mod+8 workspace number $ws8
-bindsym $mod+9 workspace number $ws9
-bindsym $mod+0 workspace number $ws0
+bindsym $mod+1 workspace number $ws1 
+bindsym $mod+2 workspace number $ws2 
+bindsym $mod+3 workspace number $ws3 
+bindsym $mod+4 workspace number $ws4 
+bindsym $mod+5 workspace number $ws5 
+bindsym $mod+6 workspace number $ws6 
+bindsym $mod+7 workspace number $ws7 
+bindsym $mod+8 workspace number $ws8 
+bindsym $mod+9 workspace number $ws9 
+bindsym $mod+0 workspace number $ws0 
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace number $ws1
@@ -205,181 +270,157 @@ bindsym $mod+Control+j move workspace to output left
 bindsym $mod+Control+Right move workspace to output right
 bindsym $mod+Control+semicolon move workspace to output right
 
-# Monitors variables
-set $primary-screen  HDMI-1 eDP-1
-set $secondary-screen eDP-1 HDMI-1
-
 # Workspace on specific screens
-workspace $ws1 output $secondary-screen
-workspace $ws2 output $primary-screen
-workspace $ws3 output $secondary-screen
-workspace $ws4 output $primary-screen
+workspace $ws1 output $primary-screen
+workspace $ws2 output $secondary-screen
+workspace $ws3 output $primary-screen
+workspace $ws4 output $secondary-screen
 
-# reload the configuration file
-bindsym $mod+Shift+c reload
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
-# exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+# Swap workspaces between screens
+bindsym $mod+Tab exec bash /home/marcelo/.config/i3/i3-swap.sh 
 
-# resize window (you can also use the mouse for that)
-mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
+# Send workspace to the other screen
+bindsym Mod1+Tab move workspace to output right
 
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
-        bindsym $left       resize shrink width 10 px or 10 ppt
-        bindsym $down       resize grow height 10 px or 10 ppt
-        bindsym $up         resize shrink height 10 px or 10 ppt
-        bindsym $right      resize grow width 10 px or 10 ppt
+# Assign softwares to specific workspaces
 
-        # same bindings, but for the arrow keys
-        bindsym Left        resize shrink width 10 px or 10 ppt
-        bindsym Down        resize grow height 10 px or 10 ppt
-        bindsym Up          resize shrink height 10 px or 10 ppt
-        bindsym Right       resize grow width 10 px or 10 ppt
+# Scratchpad
 
-        # back to normal: Enter or Escape or $mod+r
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-        bindsym $mod+r mode "default"
-}
+# Workspace 0 - Terminal
+assign [class="Alacritty"] number $ws0
+for_window [class="Alacritty"] focus
 
-bindsym $mod+r mode "resize"
+# Workspace 1 - Internet Chrome
+assign [class="Google-chrome"] number $ws1
+for_window [class="Google-chrome"] focus
+assign [class="Firefox"] number $ws1
+for_window [class="Firefox"] focus
 
-# Appearance
+# Workspace 2 - Chatting
+assign [class="discord"] number $ws2
+assign [class="zoom"] number $ws2
+assign [class="Slack"] number $ws2
+
+# Workspace 3 - VS Code
+assign [class="Code"] number $ws3
+for_window [class="Code"] focus
+
+# Workspace 4 - Dev Tools
+assign [class="Insomnia"] number $ws4
+assign [class="DBeaver"] number $ws4
+assign [class="MongoDB Compass"] number $ws4
+assign [class="Postman"] number $ws4
+assign [class="Mysql-workbench-bin"] number $ws4
+
+
+# Workspace 5 - Work
+# Workspace 6 - Others
+# Workspace 7 - Others 
+# Workspace 8 - Notes
+
+# Worspace 9 - Entertainment
+for_window [class="Spotify"] move to workspace $ws9
+
+# Floating windows
+for_window [class="Pick-colour-picker"] floating enable
+for_window [class="Gnome-calculator"] floating enable
+for_window [class="Indicator-stickynotes"] floating enable
+for_window [class="xpad"] floating enable
+for_window [class="Org.gnome.Nautilus"] floating enable
+
+
+##########################################
+#                                        # 
+#               APPEARANCE               #
+#                                        # 
+##########################################
+
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below.
+font pango: Fira Code semibold 11
+
+title_align center
+
 # Colors from Dracula Theme
-
-set $dark-bg-color	 #282a36
-set $light-bg-color 	 #44475a
-set $light-text-color	 #f8f8f2
-set $dark-text-color	 #6272a4
-set $cyan-bg-color	 #8be9fd
-set $green-bg-color	 #50fa7b
-set $orange-bg-color	 #ffb86c
-set $pink-bg-color	 #ff79c6
-set $purple-bg-color	 #bd93f9
-set $red-bg-color	 #ff5555
-set $yellow-bg-color	 #f1fa8c
+set $dark-bg-color	    #191622
+set $light-bg-color 	#44475a
+set $light-text-color	#f8f8f2
+set $dark-text-color	#6272a4
+set $cyan-bg-color	    #8be9fd
+set $green-bg-color	    #50fa7b
+set $orange-bg-color	#ffb86c
+set $pink-bg-color	    #ff79c6
+set $purple-bg-color	#685C88
+set $red-bg-color	    #ff5555
+set $yellow-bg-color	#f1fa8c
 
 # Window colors
-#			border			background		text			indicator
-client.focused		$light-bg-color		$dark-bg-color		$green-bg-color		#00ff00
-client.unfocused	$dark-bg-color 		$dark-bg-color		$dark-text-color	#00ff00
+# border			    background		    text		    	indicator
+client.focused		    $light-bg-color		$dark-bg-color		$green-bg-color		#00ff00
+client.unfocused	    $dark-bg-color 		$dark-bg-color		$dark-text-color	#00ff00
 client.focused_inactive $dark-bg-color	 	$dark-bg-color		$dark-text-color	#00ff00
-client.urgent		$red-bg-color		$dark-bg-color		$red-text-color	        #00ff00
+client.urgent		    $red-bg-color		$dark-bg-color		$red-bg-color	    #00ff00
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-bar {
-	output eDP-1
-	status_command ~/.config/i3/bumblebee-status/bumblebee-status \
-        -m git \
-	   cpu \
-	   disk \
-	   battery \
-	   datetime \
-     	-p datetime.format="%d/%m %H:%M" \
-	   disk.format="{used}/{size}" \
-    	   disk.system="SI" \
-	   scrolling.width 10 \
-     	-t dracula-powerline 
-	position top
-	font pango: Fira Code Retina 9 
-	colors {
-		background $dark-bg-color
-		#                  border             background         text
-		focused_workspace  $green-bg-color   $dark-bg-color     $light-text-color
-		active_workspace   $dark-bg-color     $dark-bg-color 	 $purple-bg-color
-		inactive_workspace $dark-bg-color     $dark-bg-color 	 $purple-bg-color
-		urgent_workspace   $red-bg-color      $red-bg-color      $dark-bg-color
-	}
-}
+#bar {
+#  output eDP1
+#  status_command ~/.config/i3/bumblebee-status/bumblebee-status \
+#  -m git \
+#     pasink \
+#     pasource \
+#     caffeine \
+#     dunstctl \
+#     battery \
+#     datetime \
+#  -p datetime.format="%d/%m %H:%M" \
+#     disk.format="{used}/{size}" \
+#     disk.system="SI" \
+#     interval=0.1s \
+#     pasink.interval=0.1s \
+#     pasource.interval=0.1s \
+#  -t omni-powerline 
+#  position top
+#  font pango: Fira Code Retina 9 
+#  colors {
+#    #                  border             background         text
+#    background 	       $dark-bg-color
+#    focused_workspace  $green-bg-color    $dark-bg-color     $light-text-color
+#    active_workspace   $dark-bg-color     $dark-bg-color     $purple-bg-color
+#   inactive_workspace $dark-bg-color     $dark-bg-color     $purple-bg-color
+#    urgent_workspace   $red-bg-color      $red-bg-color      $dark-bg-color
+#  }
+#}
 
 bar {
-	output primary 
-	output HDMI-1
-	status_command ~/.config/i3/bumblebee-status/bumblebee-status \
-        -m git \
-	   pomodoro \
-	   playerctl \
-	   pasink \
-	   pasource \
-	   datetime \
-     	-p datetime.format="%d/%m %H:%M" \
-	   disk.format="{used}/{size}" \
-    	   disk.system="SI" \
-	   scrolling.width 10 \
-     	-t dracula-powerline 
-	position top
-	font pango: Fira Code Retina 9 
-	colors {
-		background $dark-bg-color
-		#                  border             background         text
-		focused_workspace  $green-bg-color   $dark-bg-color     $light-text-color
-		active_workspace   $dark-bg-color     $dark-bg-color 	 $purple-bg-color
-		inactive_workspace $dark-bg-color     $dark-bg-color 	 $purple-bg-color
-		urgent_workspace   $red-bg-color      $red-bg-color      $dark-bg-color
-	}
+  output HDMI-A-0
+  status_command ~/.config/i3/bumblebee-status/bumblebee-status \
+  -m git \
+     pomodoro \
+     playerctl \
+     pasink \
+     pasource \
+     cpu \
+     memory \
+     disk \
+     dunstctl \
+     datetime \
+  -p datetime.format="%d/%m %H:%M" \
+     disk.format="{used}/{size}" \
+     disk.system="SI" \
+     memory.format="{used}" \
+     playerctl.args="--player=spotify,%any --ignore-player=chrome" \
+     playerctl.format = "{{title}} - {{artist}}" \
+  -t omni-powerline 
+  position top
+  font pango: Fira Code Retina 9 
+  colors {
+    #                  border             background         text
+    background 	   	   $dark-bg-color
+    focused_workspace  $green-bg-color    $dark-bg-color     $light-text-color
+    active_workspace   $dark-bg-color     $dark-bg-color     $purple-bg-color
+    inactive_workspace $dark-bg-color     $dark-bg-color     $purple-bg-color
+    urgent_workspace   $red-bg-color      $red-bg-color      $dark-bg-color
+  }
 }
-# Key-bindings
 
-# Binds for lock buttons in i3blocks
-# bindsym --release Caps_Lock exec pkill -SIGRTMIN+11 i3blocks
-# bindsym --release Num_Lock exec pkill -SIGRTMIN+11 i3blocks
-
-# Pulse Audio Controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
-
-# Playerctl controls
-bindsym XF86AudioPlay exec playerctl play-pause
-bindsym XF86AudioPause exec playerctl play-pause
-bindsym XF86AudioNext exec playerctl next
-bindsym XF86AudioPrev exec playerctl previous
-bindsym $mod+d exec rofi -show run
-
-# Sreen brightness controls
-bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
-bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
-
-# Touchpad controls
-bindsym XF86TouchpadToggle exec ~/.scripts/toggletouchpad.sh # toggle touchpad
-
-# Print Screen to folder - Whole Screen
-bindsym Print exec scrot -o '/home/marcelo/PrintScreen/%F_%T_$wx$h.png'
-
-# Print Screen to folder - Area selection 
-bindsym Shift+Print --release exec "scrot -s -o '/home/marcelo/PrintScreen/%F_%T_$wx$h.png'" 
-
-# Print Screen to clipboard - Whole Screen
-bindsym Control+Print --release exec scrot '/tmp/screenshot.png' -e 'xclip -selection clipboard -target image/png -i $f'
-
-# Print Screen to clipboard - Area selection
-bindsym Control+Shift+Print --release exec scrot -s '/tmp/screenshot.png' -e 'xclip -selection clipboard -target image/png -i $f'
-
-
-# Print Screen to clipboard - Whole Screen
-# Print Screen
-
-
-# Startup Programs
-exec --no-startup-id picom -f
-exec --no-startup-id spotify
-exec --no-startup-id alacritty
-exec --no-startup-id pasystray
-exec --no-startup-id blueman-applet
-
-
-# Wallpaper configuration
-exec_always feh --bg-scale /home/marcelo/Images/Wallpapers/pink-purple.jpg
-exec_always sh ~/.fehbg &
-
-# Monitors configuration
-exec_always sh /home/marcelo/.config/i3/multiplescreen
-# Audio cofiguration
-exec_always sh /home/marcelo/.config/i3/hotplug-hdmi

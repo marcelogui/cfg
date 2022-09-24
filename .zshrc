@@ -6,25 +6,33 @@ export ZSH="/home/marcelo/.oh-my-zsh"
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
-export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
-export ANDROID_HOME=~/Android/Sdk
-export PATH=$PATH:$ANDROID_HOME/emulator
-export PATH=$PATH:$ANDROID_HOME/tools
-export PATH=$PATH:$ANDROID_HOME/tools/bin
-export PATH=$PATH:$ANDROID_HOME/platform-tools
+FD_OPTIONS="--follow --exclude .git --exclude node_modules"
+# Uses fd search with the Fuzzy Find command coloring its outputs with fd
+export FZF_DEFAULT_COMMAND="fd --type file --color=always"
+export FZF_DEFAULT_OPTS="--ansi --multi --preview='bat --style=numbers --color=always --line-range :500 {}' --bind='f3:toggle-preview'"
+export FZF_CTRL_T_COMMAND="fd $FD_OPTIONS"
 
-export PATH=$PATH:~/Android/android-studio/bin 
-export PATH=$PATH:$(yarn global bin)
-export PATH="$HOME/.poetry/bin:$PATH"
-export PATH="$HOME/.local/bin:$PATH"
+export YARN_BIN_DIR="/home/marcelo/.yarn/bin"
+export PATH=$PATH:$YARN_BIN_DIR
+
 export PATH=$PATH:/usr/local/go/bin
-export CURL_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
+export EDITOR=/usr/bin/vim
+
+#export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+#export ANDROID_HOME=~/Android/Sdk
+#export PATH=$PATH:$ANDROID_HOME/emulator
+#export PATH=$PATH:$ANDROID_HOME/tools
+#export PATH=$PATH:$ANDROID_HOME/tools/bin
+#export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+#export PATH=$PATH:~/Android/android-studio/bin 
+#export PATH=$PATH:$(yarn global bin)
+#export PATH="$HOME/.local/bin:$PATH"
+#export PATH=$PATH:/usr/local/go/bin
+#export CURL_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
 
 
-# Aliases
-alias setwacomHDMI="xsetwacom set 'Wacom Intuos S Pen stylus' MapToOutput HDMI-1"
-alias androidEmulator="nohup emulator @Pixel_4_API_28 & disown"
-alias unityhub="nohup /mnt/sda2/Programas/UnityHub.AppImage &"
+
 
 # Useful commands
 # Changes the PageUp key to print-screen function
@@ -93,28 +101,31 @@ ZSH_THEME="spaceship"
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
+[[ -d ~/.zplug ]] || {
+	git clone https://github.com/zplug/zplug ~/.zplug
+	source ~/.zplug/init.zsh && zplug update --self
+}
+
+source ~/.fonts/*.sh
+source $ZSH/oh-my-zsh.sh
+source ~/.scripts/zsh-z-master/zsh-z.plugin.zsh
 
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(
-  git
-  poetry
-  z
-)
+plugins=(git zsh-z)
 
-source ~/.fonts/*.sh
-source $ZSH/oh-my-zsh.sh
 
 # User configuration
+ZSHZ_UNCOMMON=1
 
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
@@ -135,14 +146,14 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 SPACESHIP_PROMPT_ORDER=(
-  venv		# Virtual environment
+  venv	    	# Virtual environment
   user          # Username section
   dir           # Current directory section
   host          # Hostname section
   git           # Git section (git_branch + git_status)
   exec_time     # Execution time
   line_sep      # Line break
-  vi_mode       # Vi-mode indicator
+  # vi_mode       # Vi-mode indicator
   jobs          # Background jobs indicator
   exit_code     # Exit code section
   char          # Prompt character
@@ -171,31 +182,53 @@ SPACESHIP_DOCKER_PREFIX="docker:("
 SPACESHIP_DOCKER_SUFFIX=") "
 SPACESHIP_DOCKER_SYMBOL=""
 
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Aliases
+alias setwacomHDMI="xsetwacom set 'Wacom Intuos S Pen stylus' MapToOutput HDMI1"
+alias androidEmulator="nohup emulator @Pixel_4_API_28 & disown"
+alias unityhub="nohup /mnt/sda2/Programas/UnityHub.AppImage &"
+#alias ls="exa -F --group-directories-first"
+#alias l="exa -al --group-directories-first"
+#alias lsd="exa -Dl"
+alias cat="bat"
+# l='ls -lah'
+# la='ls -lAh'
+# ll='ls -lh'
+# ls='ls --color=tty'
+# lsa='ls -lah'
+neofetch
+
+
 ### Added by Zinit's installer
-if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
-    print -P "%F{33}▓▒░ %F{220}Installing %F{33}DHARMA%F{220} Initiative Plugin Manager (%F{33}zdharma/zinit%F{220})…%f"
-    command mkdir -p "$HOME/.zinit" && command chmod g-rwX "$HOME/.zinit"
-    command git clone https://github.com/zdharma/zinit "$HOME/.zinit/bin" && \
-        print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
-        print -P "%F{160}▓▒░ The clone has failed.%f%b"
+if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
+    print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
+    command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
+    command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" && \
+        print -P "%F{33} %F{34}Installation successful.%f%b" || \
+        print -P "%F{160} The clone has failed.%f%b"
 fi
 
-source "$HOME/.zinit/bin/zinit.zsh"
+source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
 # Load a few important annexes, without Turbo
 # (this is currently required for annexes)
 zinit light-mode for \
-    zinit-zsh/z-a-rust \
-    zinit-zsh/z-a-as-monitor \
-    zinit-zsh/z-a-patch-dl \
-    zinit-zsh/z-a-bin-gem-node
+    zdharma-continuum/zinit-annex-as-monitor \
+    zdharma-continuum/zinit-annex-bin-gem-node \
+    zdharma-continuum/zinit-annex-patch-dl \
+    zdharma-continuum/zinit-annex-rust
 
 ### End of Zinit's installer chunk
-zinit light zdharma/fast-syntax-highlighting
-zinit light zsh-users/zsh-autosuggestions
 
+# Plugin history-search-multi-word loaded with investigating.
+zinit load zdharma-continuum/history-search-multi-word
+
+# Two regular plugins loaded without investigating.
+zinit light zsh-users/zsh-autosuggestions
+zinit light zdharma-continuum/fast-syntax-highlighting
 
 ### Fix slowness of pastes with zsh-syntax-highlighting.zsh
 pasteinit() {
@@ -209,3 +242,4 @@ pastefinish() {
 zstyle :bracketed-paste-magic paste-init pasteinit
 zstyle :bracketed-paste-magic paste-finish pastefinish
 ### Fix slowness of pastes
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

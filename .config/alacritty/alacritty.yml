@@ -9,7 +9,7 @@
 # All imports must either be absolute paths starting with `/`, or paths relative
 # to the user's home directory starting with `~/`.
 import:
-  - /home/marcelo/.config/alacritty/dracula.yml
+  - /home/marcelo/.config/alacritty/omni.yml
 #  - /path/to/alacritty.yml
 
 
@@ -25,15 +25,15 @@ import:
   # available, otherwise `xterm-256color` is used.
   #TERM: alacritty
 
-#window:
+window:
   # Window dimensions (changes require restart)
   #
   # Number of lines/columns (not pixels) in the terminal. The number of columns
   # must be at least `2`, while using a value of `0` for columns and lines will
   # fall back to the window manager's recommended size.
-  #dimensions:
-  #  columns: 0
-  #  lines: 0
+  dimensions:
+    columns: 133
+    lines: 40
 
   # Window position (changes require restart)
   #
@@ -693,7 +693,11 @@ key_bindings:
  #- { key: Home,           mods: Shift,            mode: ~Alt,          action: ScrollToTop,               }
  #- { key: End,            mods: Shift,            mode: ~Alt,          action: ScrollToBottom             }
  #- { key: N, 	           mods: Control,          mode: ~Alt, 	 	action: SpawnNewInstance           } 
-  - { key: Return,         mods: Control|Shift,    			action: SpawnNewInstance           } 
+  - { key: Return,         mods: Control|Shift,    			        action: SpawnNewInstance           } 
+  - { key: J,              mods: Control|Shift,    			        chars: "\x1b[B"          } 
+  - { key: K,              mods: Control|Shift,    			        chars: "\x1b[A"          } 
+  - { key: H,              mods: Control|Shift,    			        chars: "\x1b[D"          } 
+  - { key: L,              mods: Control|Shift,    			        chars: "\x1b[C"          } 
 
  # Vi Mode
  #- { key: Space,          mods: Shift|Control,    mode: Vi|~Search, 	action: ScrollToBottom             }

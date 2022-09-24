@@ -4,10 +4,10 @@
 SCREENS=$(xrandr --query | grep ' connected' | wc -l)
 if [ $SCREENS -eq 1 ]
 then
-  xrandr --output eDP-1 --mode 1366x768 --pos 0x0 
+  xrandr --output HMDI-A-0 --primary --pos 0x0 --scale 0.5x0.5 
 fi
  
-if [ $SCREENS -eq 2 ]
-then
-  xrandr --output eDP-1 --mode 1366x768 --pos 1366x0 --rotate normal --output HDMI-1 --primary --mode 1366x768 --pos 0x0 --rotate normal --left-of eDP-1 --output DP-1 --off
-fi
+#if [ $SCREENS -eq 2 ]
+#then
+#  xrandr --output eDP1 --mode 1366x768 --pos 1366x0 --rotate normal --output HDMI1 --primary --mode 1920x1080 --pos 0x0 --rotate normal --left-of eDP1 --output DP1 --off
+#fi

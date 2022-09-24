@@ -1,0 +1,6 @@
+.config/i3/bumblebee-status
+.github
+.themes
+!.themes/gedit
+dunst
+.icons
