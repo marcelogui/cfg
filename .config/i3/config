@@ -236,8 +236,8 @@ set $ws8 "8: Notas"
 set $ws9 "9: Entertainment"
 
 # Monitors variables
-set $primary-screen  HDMI-A-0 eDP-1
-set $secondary-screen eDP-1 HDMI-A-0
+set $primary-screen  HDMI-0 eDP-1
+set $secondary-screen eDP-1 HDMI-0
 
 # Binds to workspaces
 # switch to workspace
@@ -393,7 +393,7 @@ client.urgent		    $red-bg-color		$dark-bg-color		$red-bg-color	    #00ff00
 #}
 
 bar {
-  output HDMI-A-0
+  output HDMI-0
   status_command ~/.config/i3/bumblebee-status/bumblebee-status \
   -m git \
      pomodoro \

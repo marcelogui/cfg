@@ -31,9 +31,6 @@ export EDITOR=/usr/bin/vim
 #export PATH=$PATH:/usr/local/go/bin
 #export CURL_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
 
-
-
-
 # Useful commands
 # Changes the PageUp key to print-screen function
 xmodmap -e "keycode 112 = Print" 
