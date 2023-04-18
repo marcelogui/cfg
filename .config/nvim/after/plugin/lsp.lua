@@ -24,7 +24,7 @@ local cmp_select = {behavior = cmp.SelectBehavior.Select}
 local cmp_mappings = lsp.defaults.cmp_mappings({
 	['<C-k>'] = cmp.mapping.select_prev_item(cmp_select),
 	['<C-j>'] = cmp.mapping.select_next_item(cmp_select),
-	['<C-Space>'] = cmp.mapping.confirm({ select = true }),
+	['<Tab>'] = cmp.mapping.confirm({ select = true }),
 	['<C-n>'] = cmp.mapping.complete(),
 })
 
