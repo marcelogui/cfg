@@ -47,6 +47,7 @@ return require('packer').startup(function(use)
     },
 
     use('puremourning/vimspector'),
+    use('b0o/schemastore.nvim'),
 }
 
 end)

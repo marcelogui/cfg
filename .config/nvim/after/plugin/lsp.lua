@@ -8,6 +8,15 @@ lsp.ensure_installed({
 	'rust_analyzer',
 })
 
+require('lspconfig').jsonls.setup {
+  settings = {
+    json = {
+      schemas = require('schemastore').json.schemas(),
+      validate = { enable = true },
+    },
+  },
+}
+
 -- Fix Undefined global 'vim'
 lsp.configure('lua_ls', {
     settings = {
