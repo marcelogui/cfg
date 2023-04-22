@@ -1,4 +1,5 @@
 .config/i3/bumblebee-status
+.config/nvim/plugin/packer_compiled.lua
 .github
 .themes
 !.themes/gedit
