@@ -199,22 +199,25 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightne
 bindsym XF86TouchpadToggle exec ~/.scripts/toggletouchpad.sh # toggle touchpad
 
 # Print Screen to folder - Whole Screen
-bindsym Print exec scrot -o '/home/marcelo/Images/PrintScreen/%F_%T_$wx$h.png'
+bindsym Prior exec scrot -o '/home/marcelo/Images/PrintScreen/%F_%T_$wx$h.png'
 
 # Print Screen to folder - Area selection 
-bindsym Shift+Print --release exec "scrot -s -o '/home/marcelo/Images/PrintScreen/%F_%T_$wx$h.png'" 
+bindsym Shift+Prior --release exec "scrot -s -o '/home/marcelo/Images/PrintScreen/%F_%T_$wx$h.png'" 
 
 # Print Screen to clipboard - Whole Screen
-bindsym Control+Print --release exec scrot '/tmp/screenshot.png' -e 'xclip -selection clipboard -target image/png -i $f'
+bindsym Control+Prior --release exec scrot '/tmp/screenshot.png' -e 'xclip -selection clipboard -target image/png -i $f'
 
 # Print Screen to clipboard - Area selection
-bindsym Control+Shift+Print --release exec scrot -s '/tmp/screenshot.png' -e 'xclip -selection clipboard -target image/png -i $f'
+bindsym Control+Shift+Prior --release exec scrot -s '/tmp/screenshot.png' -e 'xclip -selection clipboard -target image/png -i $f'
 
 # Open greenclip clipboard
 bindsym $mod+c --release exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command "{cmd}" 
 
 # Dunstctl command
 bindsym Control+Shift+comma exec dunstctl "history-pop"
+bindsym Control+Shift+period exec dunstctl "context"
+bindsym Control+space exec dunstctl "close"
+bindsym Control+Shift+space exec dunstctl "close_all"
 
 ##########################################
 #                                        # 
