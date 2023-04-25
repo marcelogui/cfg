@@ -18,6 +18,9 @@ exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=secrets
 # Execute notification daemon dunst at startup
 exec --no-startup-id dunst
 
+# Execute Obsidian note taking app at startup
+exec --no-startup-id obsidian
+
 # Startup Programs
 exec --no-startup-id picom -f 
 exec --no-startup-id spotify
@@ -321,8 +324,11 @@ assign [class="Mysql-workbench-bin"] number $ws4
 # Workspace 7 - Others 
 # Workspace 8 - Notes
 
-# Worspace 9 - Entertainment
+# Workspace 9 - Entertainment
 for_window [class="Spotify"] move to workspace $ws9
+
+# Workspace Scratchpad - Obsidian
+assign [class="obsidian"] number $ws8
 
 # Floating windows
 for_window [class="Pick-colour-picker"] floating enable
