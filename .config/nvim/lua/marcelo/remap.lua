@@ -46,3 +46,6 @@ vim.keymap.set("n", "<leader><leader>", function()
     vim.cmd("so")
 end)
 
+-- open terminal at bottom in insert mode
+vim.keymap.set({"n", "i"}, "<C-j>", ":bel sp term://zsh <CR>i")
+
