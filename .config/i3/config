@@ -53,6 +53,8 @@ exec_always setxkbmap -layout us -variant intl -layout br -variant abnt2
 exec_always . /home/marcelo/.zshrc
 # Power save configuration
 exec_always xset dpms 0 0 10800
+# Map keys to vim motions on any software with AltGr + [jkl;]
+exec_always --no-startup-id xmodmap /home/marcelo/.Xmodmap
 
 # Exec greenclip clipboard manager
 # exec_always "greenclip daemon"
@@ -202,16 +204,16 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightne
 bindsym XF86TouchpadToggle exec ~/.scripts/toggletouchpad.sh # toggle touchpad
 
 # Print Screen to folder - Whole Screen
-bindsym Prior exec scrot -o '/home/marcelo/Images/PrintScreen/%F_%T_$wx$h.png'
+bindsym Print exec scrot -o '/home/marcelo/Images/PrintScreen/%F_%T_$wx$h.png'
 
 # Print Screen to folder - Area selection 
-bindsym Shift+Prior --release exec "scrot -s -o '/home/marcelo/Images/PrintScreen/%F_%T_$wx$h.png'" 
+bindsym Shift+Print --release exec "scrot -s -o '/home/marcelo/Images/PrintScreen/%F_%T_$wx$h.png'" 
 
 # Print Screen to clipboard - Whole Screen
-bindsym Control+Prior --release exec scrot '/tmp/screenshot.png' -e 'xclip -selection clipboard -target image/png -i $f'
+bindsym Control+Print --release exec scrot '/tmp/screenshot.png' -e 'xclip -selection clipboard -target image/png -i $f'
 
 # Print Screen to clipboard - Area selection
-bindsym Control+Shift+Prior --release exec scrot -s '/tmp/screenshot.png' -e 'xclip -selection clipboard -target image/png -i $f'
+bindsym Control+Shift+Print --release exec scrot -s '/tmp/screenshot.png' -e 'xclip -selection clipboard -target image/png -i $f'
 
 # Open greenclip clipboard
 bindsym $mod+c --release exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command "{cmd}" 
@@ -219,8 +221,8 @@ bindsym $mod+c --release exec rofi -modi "clipboard:greenclip print" -show clipb
 # Dunstctl command
 bindsym Control+Shift+comma exec dunstctl "history-pop"
 bindsym Control+Shift+period exec dunstctl "context"
-bindsym Control+space exec dunstctl "close"
-bindsym Control+Shift+space exec dunstctl "close_all"
+bindsym Control+Shift+space exec dunstctl "close"
+bindsym Control+Alt+Shift+space exec dunstctl "close_all"
 
 ##########################################
 #                                        # 
