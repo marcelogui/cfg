@@ -6,6 +6,7 @@ vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 vim.keymap.set("v", "<C-j>", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "<C-k>", ":m '<-2<CR>gv=gv")
 
+-- join line below at the end of current line while keeping cursors at same place
 vim.keymap.set("n", "J", "mzJ`z")
 
 -- go up and down half-page and center cursor in the vertical middle
@@ -47,5 +48,5 @@ vim.keymap.set("n", "<leader><leader>", function()
 end)
 
 -- open terminal at bottom in insert mode
-vim.keymap.set({"n", "i"}, "<C-j>", ":bel sp term://zsh <CR>i")
+-- vim.keymap.set({"n", "i"}, "<C-j>", ":bel sp term://zsh <CR>i")
 
