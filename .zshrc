@@ -194,7 +194,7 @@ alias cat="bat"
 # ll='ls -lh'
 # ls='ls --color=tty'
 # lsa='ls -lah'
-neofetch
+# neofetch
 
 
 ### Added by Zinit's installer
