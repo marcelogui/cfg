@@ -1,7 +1,7 @@
 ##########################################
-#                                        # 
-#              STARTUP EXEC              # 
-#                                        # 
+#                                        #
+#              STARTUP EXEC              #
+#                                        #
 ##########################################
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
@@ -22,7 +22,7 @@ exec --no-startup-id dunst
 exec --no-startup-id obsidian
 
 # Startup Programs
-exec --no-startup-id picom -f 
+exec --no-startup-id picom -f
 exec --no-startup-id spotify
 exec --no-startup-id alacritty
 exec --no-startup-id pasystray
@@ -30,13 +30,13 @@ exec --no-startup-id blueman-applet
 exec --no-startup-id redshift
 
 ##########################################
-#                                        # 
-#              START ALWAYS              # 
-#                                        # 
+#                                        #
+#              START ALWAYS              #
+#                                        #
 ##########################################
 
 # Config wacom tablet to HDMI
-# exec_always 'Wacom Intuos S Pen stylus' MapToOutput primary 
+# exec_always 'Wacom Intuos S Pen stylus' MapToOutput primary
 exec_always setwacomHDMI
 
 # Wallpaper configuration
@@ -76,9 +76,9 @@ set $right l
 floating_modifier $mod
 
 ##########################################
-#                                        # 
-#              GLOBAL BINDS              # 
-#                                        # 
+#                                        #
+#              GLOBAL BINDS              #
+#                                        #
 ##########################################
 
 # start a terminal
@@ -88,7 +88,7 @@ bindsym $mod+Shift+Return exec alacritty --working-directory="`xcwd`"
 # kill focused window
 bindsym $mod+Shift+q kill
 # Lock Screen
-bindsym $mod+x exec sh ~/.config/i3/lockscreen.sh 
+bindsym $mod+x exec sh ~/.config/i3/lockscreen.sh
 # Change monitors config
 bindsym $mod+p exec sh ~/.config/i3/multiplescreen
 bindsym $mod+Shift+p exec sh ~/.config/i3/multiplescreen2
@@ -204,10 +204,10 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightne
 bindsym XF86TouchpadToggle exec ~/.scripts/toggletouchpad.sh # toggle touchpad
 
 # Print Screen to folder - Whole Screen
-bindsym Print exec scrot -o '/home/marcelo/Images/PrintScreen/%F_%T_$wx$h.png'
+bindsym Print exec scrot -o '/home/marcelo/Pictures/PrintScreen/%F_%T_$wx$h.png'
 
-# Print Screen to folder - Area selection 
-bindsym Shift+Print --release exec "scrot -s -o '/home/marcelo/Images/PrintScreen/%F_%T_$wx$h.png'" 
+# Print Screen to folder - Area selection
+bindsym Shift+Print --release exec "scrot -s -o '/home/marcelo/Pictures/PrintScreen/%F_%T_$wx$h.png'"
 
 # Print Screen to clipboard - Whole Screen
 bindsym Control+Print --release exec scrot '/tmp/screenshot.png' -e 'xclip -selection clipboard -target image/png -i $f'
@@ -216,7 +216,7 @@ bindsym Control+Print --release exec scrot '/tmp/screenshot.png' -e 'xclip -sele
 bindsym Control+Shift+Print --release exec scrot -s '/tmp/screenshot.png' -e 'xclip -selection clipboard -target image/png -i $f'
 
 # Open greenclip clipboard
-bindsym $mod+c --release exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command "{cmd}" 
+bindsym $mod+c --release exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command "{cmd}"
 
 # Dunstctl command
 bindsym Control+Shift+comma exec dunstctl "history-pop"
@@ -225,9 +225,9 @@ bindsym Control+Shift+space exec dunstctl "close"
 bindsym Control+Alt+Shift+space exec dunstctl "close_all"
 
 ##########################################
-#                                        # 
-#               WORKSPACES               # 
-#                                        # 
+#                                        #
+#               WORKSPACES               #
+#                                        #
 ##########################################
 
 # Define names for default workspaces for which we configure key bindings later on.
@@ -249,16 +249,16 @@ set $secondary-screen eDP-1 HDMI-0
 
 # Binds to workspaces
 # switch to workspace
-bindsym $mod+1 workspace number $ws1 
-bindsym $mod+2 workspace number $ws2 
-bindsym $mod+3 workspace number $ws3 
-bindsym $mod+4 workspace number $ws4 
-bindsym $mod+5 workspace number $ws5 
-bindsym $mod+6 workspace number $ws6 
-bindsym $mod+7 workspace number $ws7 
-bindsym $mod+8 workspace number $ws8 
-bindsym $mod+9 workspace number $ws9 
-bindsym $mod+0 workspace number $ws0 
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws0
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace number $ws1
@@ -285,7 +285,7 @@ workspace $ws3 output $primary-screen
 workspace $ws4 output $secondary-screen
 
 # Swap workspaces between screens
-bindsym $mod+Tab exec bash /home/marcelo/.config/i3/i3-swap.sh 
+bindsym $mod+Tab exec bash /home/marcelo/.config/i3/i3-swap.sh
 
 # Send workspace to the other screen
 bindsym Mod1+Tab move workspace to output right
@@ -319,11 +319,12 @@ assign [class="DBeaver"] number $ws4
 assign [class="MongoDB Compass"] number $ws4
 assign [class="Postman"] number $ws4
 assign [class="Mysql-workbench-bin"] number $ws4
+assign [class="bruno"] number $ws4
 
 
 # Workspace 5 - Work
 # Workspace 6 - Others
-# Workspace 7 - Others 
+# Workspace 7 - Others
 # Workspace 8 - Notes
 
 # Workspace 9 - Entertainment
@@ -341,9 +342,9 @@ for_window [class="Org.gnome.Nautilus"] floating enable
 
 
 ##########################################
-#                                        # 
+#                                        #
 #               APPEARANCE               #
-#                                        # 
+#                                        #
 ##########################################
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -390,9 +391,9 @@ client.urgent		    $red-bg-color		$dark-bg-color		$red-bg-color	    #00ff00
 #     interval=0.1s \
 #     pasink.interval=0.1s \
 #     pasource.interval=0.1s \
-#  -t omni-powerline 
+#  -t omni-powerline
 #  position top
-#  font pango: Fira Code Retina 9 
+#  font pango: Fira Code Retina 9
 #  colors {
 #    #                  border             background         text
 #    background 	       $dark-bg-color
@@ -422,9 +423,9 @@ bar {
      memory.format="{used}" \
      playerctl.args="--player=spotify,%any --ignore-player=chrome" \
      playerctl.format = "{{title}} - {{artist}}" \
-  -t omni-powerline 
+  -t omni-powerline
   position top
-  font pango: Fira Code Retina 9 
+  font pango: Fira Code Retina 9
   colors {
     #                  border             background         text
     background 	   	   $dark-bg-color

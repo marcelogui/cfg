@@ -18,8 +18,8 @@ export PATH=$PATH:$YARN_BIN_DIR
 export PATH=$PATH:/usr/local/go/bin
 export EDITOR=/usr/bin/vim
 
-#export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
-#export ANDROID_HOME=~/Android/Sdk
+export JAVA_HOME=$(dirname $(dirname `readlink -f /etc/alternatives/java`))
+export ANDROID_HOME=~/Android/Sdk
 #export PATH=$PATH:$ANDROID_HOME/emulator
 #export PATH=$PATH:$ANDROID_HOME/tools
 #export PATH=$PATH:$ANDROID_HOME/tools/bin
