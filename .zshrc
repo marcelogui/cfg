@@ -18,6 +18,8 @@ export PATH=$PATH:$YARN_BIN_DIR
 export PATH=$PATH:/usr/local/go/bin
 export EDITOR=/usr/bin/vim
 
+export GATLING_HOME=/home/marcelo/Workspace/Gatling
+
 export JAVA_HOME=$(dirname $(dirname `readlink -f /etc/alternatives/java`))
 export ANDROID_HOME=~/Android/Sdk
 #export PATH=$PATH:$ANDROID_HOME/emulator
@@ -31,6 +33,12 @@ export ANDROID_HOME=~/Android/Sdk
 #export PATH=$PATH:/usr/local/go/bin
 #export CURL_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
 
+# Rum tmux at start
+if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+    exec tmux
+fi
+
+
 # Useful commands
 # Changes the PageUp key to print-screen function
 xmodmap -e "keycode 112 = Print" 
@@ -39,6 +47,8 @@ numlockx off
 
 # Set new dircolors
 eval `dircolors ~/.dir_colors/dircolors`
+
+GTK_THEME=Adwaita
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
