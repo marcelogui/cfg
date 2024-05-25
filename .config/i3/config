@@ -23,7 +23,7 @@ exec --no-startup-id obsidian
 
 # Startup Programs
 exec --no-startup-id picom -f
-exec --no-startup-id spotify
+exec --no-startup-id "youtube music"
 exec --no-startup-id alacritty
 exec --no-startup-id pasystray
 exec --no-startup-id blueman-applet
@@ -329,6 +329,7 @@ assign [class="bruno"] number $ws4
 
 # Workspace 9 - Entertainment
 for_window [class="Spotify"] move to workspace $ws9
+for_window [class="YouTube Music"] move to workspace $ws9
 
 # Workspace Scratchpad - Obsidian
 assign [class="obsidian"] number $ws8
@@ -421,11 +422,12 @@ bar {
      disk.format="{used}/{size}" \
      disk.system="SI" \
      memory.format="{used}" \
-     playerctl.args="--player=spotify,%any --ignore-player=chrome" \
+     playerctl.args="--player=YoutubeMusic,%any --ignore-player=chromium" \
      playerctl.format = "{{title}} - {{artist}}" \
+     playerctl.hide = true \
   -t omni-powerline
   position top
-  font pango: Fira Code Retina 9
+  font pango: Font Awesome, Fira Code Retina 9
   colors {
     #                  border             background         text
     background 	   	   $dark-bg-color
