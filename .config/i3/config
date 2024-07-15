@@ -235,7 +235,7 @@ bindsym Control+Alt+Shift+space exec dunstctl "close_all"
 set $ws0 "0: zsh"
 set $ws1 "1: Internet"
 set $ws2 "2: Chat"
-set $ws3 "3: VSCode"
+set $ws3 "3: Code"
 set $ws4 "4: DevTools"
 set $ws5 "5: Work"
 set $ws6 "6: Any"
@@ -309,9 +309,11 @@ assign [class="discord"] number $ws2
 assign [class="zoom"] number $ws2
 assign [class="Slack"] number $ws2
 
-# Workspace 3 - VS Code
+# Workspace 3 - Code
 assign [class="Code"] number $ws3
 for_window [class="Code"] focus
+for_window [class=".*zed.*"] move to workspace $ws3
+for_window [class=".*zed.*"] focus
 
 # Workspace 4 - Dev Tools
 assign [class="Insomnia"] number $ws4
@@ -437,4 +439,3 @@ bar {
     urgent_workspace   $red-bg-color      $red-bg-color      $dark-bg-color
   }
 }
-
