@@ -244,8 +244,8 @@ set $ws8 "8: Notas"
 set $ws9 "9: Entertainment"
 
 # Monitors variables
-set $primary-screen  HDMI-0 eDP-1
-set $secondary-screen eDP-1 HDMI-0
+set $primary-screen  DP-2 HDMI-0
+set $secondary-screen HDMI-0 
 
 # Binds to workspaces
 # switch to workspace
@@ -274,9 +274,9 @@ bindsym $mod+Shift+0 move container to workspace number $ws0
 
 # Move workspace to different RandR
 bindsym $mod+Control+Left move workspace to output left
-bindsym $mod+Control+j move workspace to output left
+bindsym $mod+Control+h move workspace to output left
 bindsym $mod+Control+Right move workspace to output right
-bindsym $mod+Control+semicolon move workspace to output right
+bindsym $mod+Control+l move workspace to output right
 
 # Workspace on specific screens
 workspace $ws1 output $primary-screen
@@ -378,37 +378,37 @@ client.urgent		    $red-bg-color		$dark-bg-color		$red-bg-color	    #00ff00
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-#bar {
-#  output eDP1
-#  status_command ~/.config/i3/bumblebee-status/bumblebee-status \
-#  -m git \
-#     pasink \
-#     pasource \
-#     caffeine \
-#     dunstctl \
-#     battery \
-#     datetime \
-#  -p datetime.format="%d/%m %H:%M" \
-#     disk.format="{used}/{size}" \
-#     disk.system="SI" \
-#     interval=0.1s \
-#     pasink.interval=0.1s \
-#     pasource.interval=0.1s \
-#  -t omni-powerline
-#  position top
-#  font pango: Fira Code Retina 9
-#  colors {
-#    #                  border             background         text
-#    background 	       $dark-bg-color
-#    focused_workspace  $green-bg-color    $dark-bg-color     $light-text-color
-#    active_workspace   $dark-bg-color     $dark-bg-color     $purple-bg-color
-#   inactive_workspace $dark-bg-color     $dark-bg-color     $purple-bg-color
-#    urgent_workspace   $red-bg-color      $red-bg-color      $dark-bg-color
-#  }
-#}
-
 bar {
   output HDMI-0
+  status_command ~/.config/i3/bumblebee-status/bumblebee-status \
+  -m git \
+     pasink \
+     pasource \
+     caffeine \
+     dunstctl \
+     battery \
+     datetime \
+  -p datetime.format="%d/%m %H:%M" \
+     disk.format="{used}/{size}" \
+     disk.system="SI" \
+     interval=0.1s \
+     pasink.interval=0.1s \
+     pasource.interval=0.1s \
+  -t omni-powerline
+  position top
+  font pango: Fira Code Retina 9
+  colors {
+    #                  border             background         text
+    background 	       $dark-bg-color
+    focused_workspace  $green-bg-color    $dark-bg-color     $light-text-color
+    active_workspace   $dark-bg-color     $dark-bg-color     $purple-bg-color
+   inactive_workspace $dark-bg-color     $dark-bg-color     $purple-bg-color
+    urgent_workspace   $red-bg-color      $red-bg-color      $dark-bg-color
+  }
+}
+
+bar {
+  output DP-2
   status_command ~/.config/i3/bumblebee-status/bumblebee-status \
   -m git \
      pomodoro \

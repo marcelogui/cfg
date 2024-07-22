@@ -7,7 +7,7 @@ then
   xrandr --output HMDI-A-0 --primary --pos 0x0 --scale 0.5x0.5 
 fi
  
-#if [ $SCREENS -eq 2 ]
-#then
-#  xrandr --output eDP1 --mode 1366x768 --pos 1366x0 --rotate normal --output HDMI1 --primary --mode 1920x1080 --pos 0x0 --rotate normal --left-of eDP1 --output DP1 --off
-#fi
+if [ $SCREENS -eq 2 ]
+then
+  xrandr --output DP-2 --primary --mode 3840x2160 --rotate normal  --output HDMI-0 --mode 1920x1080 --pos 0x0 --rotate normal --right-of DP-2 --scale 2x2
+fi
