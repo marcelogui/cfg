@@ -74,6 +74,7 @@ set $right l
 
 # use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
+floating_maximum_size 2000 x 2000
 
 ##########################################
 #                                        #
@@ -245,7 +246,7 @@ set $ws9 "9: Entertainment"
 
 # Monitors variables
 set $primary-screen  DP-2 HDMI-0
-set $secondary-screen HDMI-0 
+set $secondary-screen HDMI-0
 
 # Binds to workspaces
 # switch to workspace
@@ -356,25 +357,54 @@ font pango: Fira Code semibold 11
 
 title_align center
 
+# Color from Cattpuccin Theme
+
+set $c-red-bg-color       #f38ba8
+set $c-green-bg-color     #a6e3a1
+set $c-orange-bg-color    #fab387
+set $c-pink-bg-color      #f5c2e7
+set $c-yellow-bg-color    #f9e2af
+set $c-cyan-bg-color      #89dceb
+set $c-blue-bg-color      #89b4fa
+set $c-dark-bg-color      #181825
+set $c-purple-bg-color    #cba6f7
+set $c-light-bg-color     #b4befe
+set $c-light-text-color   #cdd6f4
+set $c-dark-text-color    #7f849c
+set $c-rosewater-color    #f5e0dc
+set $c-flamingo-color     #f2cdcd
+set $c-maroon-color       #eba0ac
+set $c-teal-color         #94e2d5
+set $c-sapphire-color     #74c7ec
+set $c-subtext1-color     #bac2de
+set $c-subtext0-color     #a6adc8
+set $c-overlay2-color     #9399b2
+set $c-overlay0-color     #6c7086
+set $c-surface2-color     #585b70
+set $c-surface1-color     #45475a
+set $c-surface0-color     #313244
+set $c-base-color         #1e1e2e
+set $c-crust-color        #11111b
+
 # Colors from Dracula Theme
-set $dark-bg-color	    #191622
-set $light-bg-color 	#44475a
-set $light-text-color	#f8f8f2
-set $dark-text-color	#6272a4
-set $cyan-bg-color	    #8be9fd
-set $green-bg-color	    #50fa7b
-set $orange-bg-color	#ffb86c
-set $pink-bg-color	    #ff79c6
-set $purple-bg-color	#685C88
-set $red-bg-color	    #ff5555
-set $yellow-bg-color	#f1fa8c
+set $d-red-bg-color	    #ff5555
+set $d-green-bg-color	#50fa7b
+set $d-orange-bg-color	#ffb86c
+set $d-pink-bg-color	#ff79c6
+set $d-yellow-bg-color	#f1fa8c
+set $d-cyan-bg-color	#8be9fd
+set $d-dark-bg-color	#191622
+set $d-purple-bg-color	#685C88
+set $d-light-bg-color 	#44475a
+set $d-light-text-color	#f8f8f2
+set $d-dark-text-color	#6272a4
 
 # Window colors
 # border			    background		    text		    	indicator
-client.focused		    $light-bg-color		$dark-bg-color		$green-bg-color		#00ff00
-client.unfocused	    $dark-bg-color 		$dark-bg-color		$dark-text-color	#00ff00
-client.focused_inactive $dark-bg-color	 	$dark-bg-color		$dark-text-color	#00ff00
-client.urgent		    $red-bg-color		$dark-bg-color		$red-bg-color	    #00ff00
+client.focused		    $c-light-bg-color	$c-dark-bg-color	$c-purple-bg-color	#00ff00
+client.unfocused	    $c-dark-bg-color 	$c-dark-bg-color	$c-dark-text-color	#00ff00
+client.focused_inactive $c-dark-bg-color	$c-dark-bg-color	$c-dark-text-color	#00ff00
+client.urgent		    $c-red-bg-color		$c-dark-bg-color	$c-red-bg-color	    #00ff00
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -394,16 +424,16 @@ bar {
      interval=0.1s \
      pasink.interval=0.1s \
      pasource.interval=0.1s \
-  -t omni-powerline
+  -t iceberg
   position top
   font pango: Fira Code Retina 9
   colors {
     #                  border             background         text
-    background 	       $dark-bg-color
-    focused_workspace  $green-bg-color    $dark-bg-color     $light-text-color
-    active_workspace   $dark-bg-color     $dark-bg-color     $purple-bg-color
-   inactive_workspace $dark-bg-color     $dark-bg-color     $purple-bg-color
-    urgent_workspace   $red-bg-color      $red-bg-color      $dark-bg-color
+    background 	       $c-dark-bg-color
+    focused_workspace  $c-green-bg-color    $c-dark-bg-color     $c-light-text-color
+    active_workspace   $c-dark-bg-color     $c-dark-bg-color     $c-purple-bg-color
+   inactive_workspace $c-dark-bg-color     $c-dark-bg-color     $c-purple-bg-color
+    urgent_workspace   $c-red-bg-color      $c-red-bg-color      $c-dark-bg-color
   }
 }
 
@@ -427,15 +457,15 @@ bar {
      playerctl.args="--player=YoutubeMusic,%any --ignore-player=chromium" \
      playerctl.format = "{{title}} - {{artist}}" \
      playerctl.hide = true \
-  -t omni-powerline
+  -t iceberg
   position top
   font pango: Font Awesome, Fira Code Retina 9
   colors {
     #                  border             background         text
-    background 	   	   $dark-bg-color
-    focused_workspace  $green-bg-color    $dark-bg-color     $light-text-color
-    active_workspace   $dark-bg-color     $dark-bg-color     $purple-bg-color
-    inactive_workspace $dark-bg-color     $dark-bg-color     $purple-bg-color
-    urgent_workspace   $red-bg-color      $red-bg-color      $dark-bg-color
+    background 	   	   $c-dark-bg-color
+    focused_workspace  $c-green-bg-color    $c-dark-bg-color     $c-light-text-color
+    active_workspace   $c-dark-bg-color     $c-dark-bg-color     $c-purple-bg-color
+    inactive_workspace $c-dark-bg-color     $c-dark-bg-color     $c-purple-bg-color
+    urgent_workspace   $c-red-bg-color      $c-red-bg-color      $c-dark-bg-color
   }
 }
