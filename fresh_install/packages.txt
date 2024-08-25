@@ -1,0 +1,26 @@
+# package | repository
+build-essential
+curl
+git | ppa:git-core/ppa
+zsh
+i3
+rofi
+dunst | universe
+stow
+alacritty
+tmux
+flameshot
+bat
+# For wallpaper
+feh
+# print screen
+scrot
+# lockscreen
+imagemagick
+# for bumblebee status
+xcwd
+playerctl
+python3-pip
+python3-pygit2
+python3-psutil
+pulseaudio
