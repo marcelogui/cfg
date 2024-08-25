@@ -39,6 +39,9 @@ exec --no-startup-id redshift
 # exec_always 'Wacom Intuos S Pen stylus' MapToOutput primary
 exec_always setwacomHDMI
 
+# zoom out in second monitor
+exec_always xrandr --output HDMI-0 --scale 2
+
 # Wallpaper configuration
 exec_always feh --bg-scale /home/marcelo/Images/Wallpapers/pink-purple.jpg
 exec_always sh ~/.fehbg &
