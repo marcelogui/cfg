@@ -9,7 +9,7 @@
 # All imports must either be absolute paths starting with `/`, or paths relative
 # to the user's home directory starting with `~/`.
 import:
-  - /home/marcelo/.config/alacritty/omni.yml
+  - /home/marcelo/.config/alacritty/catppuccin-macchiato.toml
 #  - /path/to/alacritty.yml
 
 
@@ -693,12 +693,12 @@ key_bindings:
  #- { key: PageDown,       mods: Shift,            mode: ~Alt,          action: ScrollPageDown             }
  #- { key: Home,           mods: Shift,            mode: ~Alt,          action: ScrollToTop,               }
  #- { key: End,            mods: Shift,            mode: ~Alt,          action: ScrollToBottom             }
- #- { key: N, 	           mods: Control,          mode: ~Alt, 	 	action: SpawnNewInstance           } 
-  - { key: Return,         mods: Control|Shift,    			        action: SpawnNewInstance           } 
-  - { key: J,              mods: Control|Shift,    			        chars: "\x1b[B"          } 
-  - { key: K,              mods: Control|Shift,    			        chars: "\x1b[A"          } 
-  - { key: H,              mods: Control|Shift,    			        chars: "\x1b[D"          } 
-  - { key: L,              mods: Control|Shift,    			        chars: "\x1b[C"          } 
+ #- { key: N, 	           mods: Control,          mode: ~Alt, 	 	action: SpawnNewInstance           }
+  - { key: Return,         mods: Control|Shift,    			        action: SpawnNewInstance           }
+  - { key: J,              mods: Control|Shift,    			        chars: "\x1b[B"          }
+  - { key: K,              mods: Control|Shift,    			        chars: "\x1b[A"          }
+  - { key: H,              mods: Control|Shift,    			        chars: "\x1b[D"          }
+  - { key: L,              mods: Control|Shift,    			        chars: "\x1b[C"          }
 
  # Vi Mode
  #- { key: Space,          mods: Shift|Control,    mode: Vi|~Search, 	action: ScrollToBottom             }
