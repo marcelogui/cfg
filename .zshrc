@@ -9,7 +9,7 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 FD_OPTIONS="--follow --exclude .git --exclude node_modules"
 # Uses fd search with the Fuzzy Find command coloring its outputs with fd
 export FZF_DEFAULT_COMMAND="fd --type file --color=always"
-export FZF_DEFAULT_OPTS="--ansi --multi --preview='bat --style=numbers --color=always --line-range :500 {}' --bind='f3:toggle-preview'"
+export FZF_DEFAULT_OPTS="--ansi --multi --preview='batcat --style=numbers --color=always --line-range :500 {}' --bind='f3:toggle-preview'"
 export FZF_CTRL_T_COMMAND="fd $FD_OPTIONS"
 
 export YARN_BIN_DIR="/home/marcelo/.yarn/bin"
@@ -43,7 +43,7 @@ fi
 # Changes the PageUp key to print-screen function
 xmodmap -e "keycode 112 = Print" 
 # Disable numlock for Keychron K4 work correctly
-numlockx off
+# numlockx off
 
 # Set new dircolors
 eval `dircolors ~/.dir_colors/dircolors`
@@ -178,6 +178,7 @@ SPACESHIP_USER_SHOW=always
 
 SPACESHIP_PROMPT_ADD_NEWLINE=false
 SPACESHIP_PROMPT_SEPARATE_LINE=false
+SPACESHIP_RPROMPT_ADD_NEWLINE=true
 SPACESHIP_PROMPT_FIRST_PREFIX_SHOW=true
 
 SPACESHIP_CHAR_SYMBOL="❯"
@@ -198,7 +199,7 @@ alias unityhub="nohup /mnt/sda2/Programas/UnityHub.AppImage &"
 #alias ls="exa -F --group-directories-first"
 #alias l="exa -al --group-directories-first"
 #alias lsd="exa -Dl"
-alias cat="bat"
+alias cat="batcat"
 # l='ls -lah'
 # la='ls -lAh'
 # ll='ls -lh'
