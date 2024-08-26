@@ -72,6 +72,15 @@ fi
 
 # mongodb-compass
 
+if ! command -v mongodb-compass >/dev/null 2>&1; then
+    echo "Mongodb-Compass not found, installing..."
+    wget -O "${HOME}/Downloads/mongodb-compass.deb" https://downloads.mongodb.com/compass/mongodb-compass_1.43.6_amd64.deb
+    sudo apt install -y "${HOME}/Downloads/mongodb-compass.deb"
+    rm "${HOME}/Downloads/mongodb-compass.deb";
+else
+    echo "MongoDB Compass is already installed."
+fi
+
 
 
 
