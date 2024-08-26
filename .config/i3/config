@@ -44,7 +44,7 @@ exec_always xrandr --output HDMI-0 --scale 2
 
 # Wallpaper configuration
 exec_always feh --bg-scale /home/marcelo/Images/Wallpapers/pink-purple.jpg
-exec_always sh ~/.fehbg &
+exec_always sh "${HOME}/.fehbg" &
 
 # Monitors configuration
 exec_always sh /home/marcelo/.config/i3/multiplescreen
@@ -92,11 +92,7 @@ bindsym $mod+Shift+Return exec alacritty --working-directory="`xcwd`"
 # kill focused window
 bindsym $mod+Shift+q kill
 # Lock Screen
-bindsym $mod+x exec sh ~/.config/i3/lockscreen.sh
-# Change monitors config
-bindsym $mod+p exec sh ~/.config/i3/multiplescreen
-bindsym $mod+Shift+p exec sh ~/.config/i3/multiplescreen2
-bindsym $mod+Shift+Mod1+p exec sh ~/.config/i3/multiplescreen3
+bindsym $mod+x exec "${HOME}/.config/i3/lockscreen.sh"
 
 # change focus
 bindsym $mod+$left focus left
@@ -205,7 +201,7 @@ bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
 bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
 
 # Touchpad controls
-bindsym XF86TouchpadToggle exec ~/.scripts/toggletouchpad.sh # toggle touchpad
+bindsym XF86TouchpadToggle exec "${HOME}/.scripts/toggletouchpad.sh # toggle touchpad"
 
 # Print Screen to folder - Whole Screen
 bindsym Print exec scrot -o '/home/marcelo/Pictures/PrintScreen/%F_%T_$wx$h.png'
@@ -413,7 +409,7 @@ client.urgent		    $c-red-bg-color		$c-dark-bg-color	$c-red-bg-color	    #00ff00
 # finds out, if available)
 bar {
   output HDMI-0
-  status_command ~/.config/i3/bumblebee-status/bumblebee-status \
+  status_command ${HOME}/.config/i3/bumblebee-status/bumblebee-status \
   -m git \
      pasink \
      pasource \
@@ -442,7 +438,7 @@ bar {
 
 bar {
   output DP-2
-  status_command ~/.config/i3/bumblebee-status/bumblebee-status \
+  status_command ${HOME}/.config/i3/bumblebee-status/bumblebee-status \
   -m git \
      pomodoro \
      playerctl \
@@ -469,6 +465,35 @@ bar {
     focused_workspace  $c-green-bg-color    $c-dark-bg-color     $c-light-text-color
     active_workspace   $c-dark-bg-color     $c-dark-bg-color     $c-purple-bg-color
     inactive_workspace $c-dark-bg-color     $c-dark-bg-color     $c-purple-bg-color
+    urgent_workspace   $c-red-bg-color      $c-red-bg-color      $c-dark-bg-color
+  }
+}
+
+bar {
+  output eDP-1
+  status_command ${HOME}/.config/i3/bumblebee-status/bumblebee-status \
+  -m git \
+     pasink \
+     pasource \
+     caffeine \
+     dunstctl \
+     battery \
+     datetime \
+  -p datetime.format="%d/%m %H:%M" \
+     disk.format="{used}/{size}" \
+     disk.system="SI" \
+     interval=0.1s \
+     pasink.interval=0.1s \
+     pasource.interval=0.1s \
+  -t iceberg
+  position top
+  font pango: Fira Code Retina 9
+  colors {
+    #                  border             background         text
+    background 	       $c-dark-bg-color
+    focused_workspace  $c-green-bg-color    $c-dark-bg-color     $c-light-text-color
+    active_workspace   $c-dark-bg-color     $c-dark-bg-color     $c-purple-bg-color
+   inactive_workspace $c-dark-bg-color     $c-dark-bg-color     $c-purple-bg-color
     urgent_workspace   $c-red-bg-color      $c-red-bg-color      $c-dark-bg-color
   }
 }
