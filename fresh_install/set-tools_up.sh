@@ -68,6 +68,35 @@ fi
 
 # youtube-music
 
+if ! command -v youtube-music >/dev/null 2>&1; then
+    echo "Youtube-Music not found, installing..."
+    wget -O "${HOME}/Downloads/youtube-music.deb" https://github.com/th-ch/youtube-music/releases/download/v3.5.1/youtube-music_3.5.1_amd64.deb
+    sudo apt install -y "${HOME}/Downloads/youtube-music.deb"
+    rm "${HOME}/Downloads/youtube-music.deb";
+
+    # Create the AppArmor profile file
+    sudo tee /etc/apparmor.d/youtube-music > /dev/null << 'EOF'
+# This profile adds the "userns" flags to the otherwise "unrestricted" flags, this is needed, since electron uses user namespaces (userns) to run a sandbox, and this app uses electron
+
+abi <abi/4.0>,
+include <tunables/global>
+
+profile youtube-music "/opt/YouTube Music/youtube-music" flags=(unconfined) {
+  userns,
+
+  # Site-specific additions and overrides. See local/README for details.
+  include if exists <local/youtube-music>
+}
+EOF
+
+    # Reload AppArmor profiles
+    sudo systemctl reload apparmor
+else
+    echo "Youtube-Music is already installed."
+fi
+
+
+
 # bruno
 
 # mongodb-compass
