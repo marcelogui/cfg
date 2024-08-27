@@ -3,3 +3,4 @@
 .themes
 !.themes/gedit
 .icons
+__pycache__/
