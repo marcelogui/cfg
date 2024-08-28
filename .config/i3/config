@@ -474,15 +474,19 @@ bar {
   output eDP-1
   status_command ${HOME}/.config/i3/bumblebee-status/bumblebee-status \
   -m git \
+     playerctl \
      pasink \
      pasource \
-     caffeine \
+     cpu \
+     memory \
+     disk \
      dunstctl \
      battery \
      datetime \
   -p datetime.format="%d/%m %H:%M" \
      disk.format="{used}/{size}" \
      disk.system="SI" \
+     memory.format="{used}" \
      interval=0.1s \
      pasink.interval=0.1s \
      pasource.interval=0.1s \
