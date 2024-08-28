@@ -1,7 +1,6 @@
 # package | repository
 build-essential
 curl
-git | ppa:git-core/ppa
 zsh
 i3
 rofi
@@ -11,6 +10,7 @@ alacritty
 tmux
 flameshot
 bat
+tree
 # For wallpaper
 feh
 # print screen
