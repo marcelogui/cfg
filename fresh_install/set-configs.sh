@@ -3,6 +3,12 @@
 
 
 # fix cedila "ć"
+# Fix cedilla in compose file
+COMPOSE_FILE="/usr/share/X11/locale/en_US.UTF-8/Compose"
+sudo sed --in-place -e 's/ć/ç/g' ${COMPOSE_FILE}
+sudo sed --in-place -e 's/Ć/Ç/g' ${COMPOSE_FILE}
+
+# Fix GTK cedilla
 if ! grep -q '^GTK_IM_MODULE=cedilla$' /etc/environment; then
     echo "GTK_IM_MODULE=cedilla" >> /etc/environment
     echo "Added GTK_IM_MODULE=cedilla to /etc/environment"
