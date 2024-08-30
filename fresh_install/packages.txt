@@ -11,8 +11,11 @@ tmux
 flameshot
 bat
 tree
+ripgrep
 # For wallpaper
+xclip
 feh
+lazygit
 # print screen
 scrot
 # lockscreen
