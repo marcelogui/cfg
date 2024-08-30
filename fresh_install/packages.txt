@@ -18,6 +18,7 @@ feh
 lazygit
 # print screen
 scrot
+xclip
 # lockscreen
 imagemagick
 # for bumblebee status
