@@ -12,6 +12,7 @@ flameshot
 bat
 tree
 ripgrep
+ncdu
 # For wallpaper
 xclip
 feh

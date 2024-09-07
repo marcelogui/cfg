@@ -42,6 +42,8 @@ fi
 # Useful commands
 # Changes the PageUp key to print-screen function
 xmodmap -e "keycode 112 = Print" 
+# Run xmodmap on Xmodmap
+xmodmap ${HOME}/.Xmodmap
 # Disable numlock for Keychron K4 work correctly
 # numlockx off
 
