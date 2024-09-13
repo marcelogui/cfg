@@ -22,6 +22,9 @@ exec --no-startup-id dunst
 # Execute Obsidian note taking app at startup
 exec --no-startup-id obsidian
 
+# Execute xrandr for notebook
+exec --no-startup-id xrandr --output eDP-1 --scale 2
+
 # Startup Programs
 exec --no-startup-id picom -f
 exec --no-startup-id "youtube music"
