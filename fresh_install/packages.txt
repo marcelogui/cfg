@@ -17,6 +17,7 @@ ncdu
 xclip
 feh
 lazygit
+lxappearance
 # print screen
 scrot
 xclip
