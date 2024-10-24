@@ -1,3 +1,2 @@
-vim.o.termguicolors = true
-require("marcelo")
-
+-- bootstrap lazy.nvim, LazyVim and your plugins
+require("config.lazy")
