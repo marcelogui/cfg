@@ -22,6 +22,8 @@ export GATLING_HOME=/home/marcelo/Workspace/Gatling
 
 export JAVA_HOME=$(dirname $(dirname `readlink -f /etc/alternatives/java`))
 export ANDROID_HOME=~/Android/Sdk
+export M2_HOME=/opt/apache-maven-3.9.9
+export PATH=$M2_HOME/bin:$PATH
 #export PATH=$PATH:$ANDROID_HOME/emulator
 #export PATH=$PATH:$ANDROID_HOME/tools
 #export PATH=$PATH:$ANDROID_HOME/tools/bin
