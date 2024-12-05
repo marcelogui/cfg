@@ -59,7 +59,7 @@ fi
 # Install Visual Studio Code if not already installed
 if ! command -v code >/dev/null 2>&1; then
     echo "Visual Studio Code not found, installing..."
-    wget -O "${HOME}/Downloads/vscode.deb" https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64
+    wget -O "${HOME}/Downloads/vscode.deb" "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
     sudo apt install -y "${HOME}/Downloads/vscode.deb"
     rm "${HOME}/Downloads/vscode.deb";
 else
