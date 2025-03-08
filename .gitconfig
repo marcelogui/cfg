@@ -3,3 +3,9 @@
 	name = Marcelo Guimaraes
 [credential]
 	helper = store
+[core]
+	editor = nvim
+[init]
+	defaultBranch = main
+[pull]
+	rebase = true
