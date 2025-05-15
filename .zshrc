@@ -36,8 +36,12 @@ export PATH=$M2_HOME/bin:$PATH
 #export CURL_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
 
 # Rum tmux at start
-if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
-    exec tmux
+if command -v tmux &> /dev/null &&  # Make sure tmux is installed
+  [ -n "$PS1" ] &&                  # Only run in interactive shells, not scripts 
+  [[ ! "$TERM" =~ screen ]] &&      # Avoid launching tmux inside screen
+  [[ ! "$TERM" =~ tmux ]] &&        # Avois launching tmux inside another tmux like terminal 
+  [ -z "$TMUX" ]; then              # Only start tmux if not already inside a tmux session
+    tmux
 fi
 
 
